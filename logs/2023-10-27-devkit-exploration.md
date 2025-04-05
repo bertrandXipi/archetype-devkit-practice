@@ -1,7 +1,5 @@
 # Logbook Entry - 2023-10-27.
 
-# Logbook Entry - 2023-10-27 (or current date)
-
 ## Topic: Archetype Devkit Initial Exploration & Setup
 
 This documents the initial steps taken to set up the development environment, understand the workflow, and overcome initial challenges while learning the Archetype Devkit.
