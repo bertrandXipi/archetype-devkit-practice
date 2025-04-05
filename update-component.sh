@@ -37,4 +37,4 @@ echo "--- Pushing theme to Shopify ($SHOPIFY_THEME_NAME on $SHOPIFY_STORE) ---"
 shopify theme push --theme "$SHOPIFY_THEME_NAME" --store "$SHOPIFY_STORE"
 popd > /dev/null
 
-echo ">>> Update completed for component '$COMPONENT_NAME'."
+echo ">>> Update completed for component '$COMPONENT_NAME'." 
