@@ -7,7 +7,7 @@ node_modules/
 # Sensitive configuration files (adjust according to your setup)
 config/settings_data.json
 config/shopify.yml
-
+.env
 # Log and temporary files
 log/
 tmp/
