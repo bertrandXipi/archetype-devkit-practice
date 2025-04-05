@@ -1,0 +1,40 @@
+# Node.js modules
+node_modules/
+
+# .shopify folder (may contain local environment information)
+.shopify/
+
+# Sensitive configuration files (adjust according to your setup)
+config/settings_data.json
+config/shopify.yml
+
+# Log and temporary files
+log/
+tmp/
+*.log
+npm-debug.log
+yarn-error.log
+
+# Distribution or build folder
+dist/
+build/
+upload/
+
+# IDE specific files (adjust according to your IDE)
+.idea/
+.vscode/
+*.swp
+*.swo
+*.iml
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# Compressed files
+*.zip
+*.rar
+*.gz
+
+# Other project specific files or folders
+# Add any other necessary exclusions here
