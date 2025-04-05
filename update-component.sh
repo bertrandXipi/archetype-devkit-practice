@@ -1,40 +1,45 @@
+      
 #!/usr/bin/env bash
+
 set -e
 
-# --- Configuration (Read from the environment, with default values) ---
-
+# --- Configuration ---
 COMPONENTS_DIR="${DEVKIT_COMPONENTS_DIR:-./reference-components}"
-THEME_DIR="${DEVKIT_THEME_DIR:-./reference-theme}"
+THEME_DIR="${DEVKIT_THEME_DIR:-./reference-theme}" 
+SHOPIFY_THEME_NAME="${DEVKIT_SHOPIFY_THEME_NAME:?Erreur: DEVKIT_SHOPIFY_THEME_NAME non définie}"
+SHOPIFY_STORE="${DEVKIT_SHOPIFY_STORE:?Erreur: DEVKIT_SHOPIFY_STORE non définie}"
+# --- Fin Configuration ---
 
-
-SHOPIFY_THEME_NAME="${DEVKIT_SHOPIFY_THEME_NAME:?Error: DEVKIT_SHOPIFY_THEME_NAME not defined}"
-SHOPIFY_STORE="${DEVKIT_SHOPIFY_STORE:?Error: DEVKIT_SHOPIFY_STORE not defined}"
-
-# --- End Configuration ---
-
-# Checks if a component name was provided as an argument
 if [ -z "$1" ]; then
-  echo "Error: You must specify the name of the component to update."
-  echo "Usage: ./update-component.sh <component-name>"
+  echo "Erreur : Vous devez spécifier le nom du composant à mettre à jour."
+  echo "Usage: ./update-component.sh <nom-du-composant>"
   exit 1
 fi
 
 COMPONENT_NAME="$1"
-echo ">>> Updating component '$COMPONENT_NAME' in theme '$SHOPIFY_THEME_NAME'..."
 
+echo ">>> Mise à jour du composant '$COMPONENT_NAME' dans le thème '$SHOPIFY_THEME_NAME'..."
 
-echo "--- Mapping and copying from $COMPONENTS_DIR ---"
+# Étape 1 & 2: Aller dans le dossier composants, mapper et copier
+echo "--- Mapping et copie depuis $COMPONENTS_DIR ---"
 pushd "$COMPONENTS_DIR" > /dev/null
-
-shopify theme component map "$THEME_DIR" "$COMPONENT_NAME"
-shopify theme component copy "$THEME_DIR" "$COMPONENT_NAME"
+# CORRECTION ICI AUSSI pour le chemin de destination de copy
+shopify theme component map "../${THEME_DIR#./}" "$COMPONENT_NAME" 
+# CORRECTION ICI : Supprimer $COMPONENT_NAME de la commande copy
+shopify theme component copy "../${THEME_DIR#./}" 
 popd > /dev/null
 
-echo "--- Generating Import Map in $THEME_DIR ---"
+# Étape 3 & 4: Aller dans le dossier thème et générer l'import map
+echo "--- Génération Import Map dans $THEME_DIR ---"
 pushd "$THEME_DIR" > /dev/null
 shopify theme generate import-map .
-echo "--- Pushing theme to Shopify ($SHOPIFY_THEME_NAME on $SHOPIFY_STORE) ---"
+
+# Étape 5: Pousser les changements vers Shopify (toujours depuis le dossier thème)
+echo "--- Poussée du thème vers Shopify ($SHOPIFY_THEME_NAME sur $SHOPIFY_STORE) ---"
 shopify theme push --theme "$SHOPIFY_THEME_NAME" --store "$SHOPIFY_STORE"
+
 popd > /dev/null
 
-echo ">>> Update completed for component '$COMPONENT_NAME'." 
+echo ">>> Mise à jour terminée pour le composant '$COMPONENT_NAME'."
+
+    
