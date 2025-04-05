@@ -56,6 +56,10 @@ To get started with this repository and the Archetype Devkit:
 
 6.  **Start experimenting:** Once components are installed, begin exploring the `reference-theme`, try modifying existing components in `reference-components`, or create your own following the guides in the "Getting Started" section of the Devkit documentation.
 
+## Learning Logbook
+
+Detailed progress, challenges overcome, and insights gained during the learning process are documented in daily entries within the [/logs](/logs) directory. Each file is named using the `YYYY-MM-DD` format.
+
 ## Contributing
 
 As this is a personal practice repository, contributions are not expected. However, if you have any suggestions or feedback, feel free to open an issue.
